@@ -22,12 +22,73 @@ export default function TransactionListItem({
 	const emoji = categoryEmojies[categoryInfo?.name ?? "Default"];
 	return (
 		<Card>
-			<Amount
-				amount={transaction.amount}
-				color={color}
-				iconName={iconName}
-			/>
+			<View style={styles.row}>
+				<View style={{ width: "40%", gap: 3 }}>
+					<Amount
+						amount={transaction.amount}
+						color={color}
+						iconName={iconName}
+					/>
+					<CategoryItem
+						categoryColor={categoryColor}
+						categoryInfo={categoryInfo}
+						emoji={emoji}
+					/>
+				</View>
+				<TransactionInfo
+					date={transaction.date}
+					description={transaction.description}
+					id={transaction.id}
+				/>
+			</View>
 		</Card>
+	);
+}
+
+function TransactionInfo({
+	id,
+	date,
+	description,
+}: {
+	id: number;
+	date: number;
+	description: string;
+}) {
+	return (
+		<View style={{ flexGrow: 1, gap: 6, flexShrink: 1 }}>
+			<Text style={{ fontSize: 16, fontWeight: "bold" }}>
+				{description}
+			</Text>
+			<Text>Transaction number {id}</Text>
+			<Text style={{ fontSize: 12, color: "gray" }}>
+				{new Date(date * 1000).toDateString()}
+			</Text>
+		</View>
+	);
+}
+
+function CategoryItem({
+	categoryColor,
+	categoryInfo,
+	emoji,
+}: {
+	categoryColor: string;
+	categoryInfo: Category | undefined;
+	emoji: string;
+}) {
+	return (
+		<View
+			style={[
+				styles.categoryContainer,
+				{
+					backgroundColor: categoryColor + "40",
+				},
+			]}
+		>
+			<Text style={styles.categoryText}>
+				{emoji} {categoryInfo?.name}
+			</Text>
+		</View>
 	);
 }
 

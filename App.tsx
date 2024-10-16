@@ -51,7 +51,7 @@ export default function App() {
 							name="Home"
 							component={Home}
 							options={{
-								headerTitle: "Budget Daniel",
+								headerTitle: "Budget Home App",
 								headerLargeTitle: true,
 							}}
 						/>
